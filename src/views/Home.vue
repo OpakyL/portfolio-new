@@ -8,16 +8,21 @@
       </div>
       <div class="game" v-else>
         <div class="mob">
-          <img
-            :src="
-              require(`@/assets/img/sprites/${imageFolder}/${currentMob.sprite}.png`)
-            "
+          <div
             @click="respawning ? () => {} : makeAHit()"
             :style="{
               cursor: 'url(' + require('@/assets/img/cursor.png') + '), auto',
             }"
-            alt="mob"
-          />
+            class="mob-image"
+          >
+            <div class="mob-overlay"></div>
+            <img
+              :src="
+                require(`@/assets/img/sprites/${imageFolder}/${currentMob.sprite}.png`)
+              "
+              alt="mob"
+            />
+          </div>
           <div class="hp">
             <div class="hp-text">
               {{ currentHp >= 0 ? currentHp : 0 }} / {{ currentMob.hp }}
@@ -36,12 +41,26 @@
         <div class="shop">
           <div class="shop-points">{{ currentPoints }}pts</div>
           <div class="shop-buttons">
-            <div class="shop-button" @click="buySword">
-              <img src="@/assets/img/shop/sword.svg" alt="sword" />
+            <div
+              class="shop-button"
+              :class="{ border: currentPoints >= swordPrice }"
+              @click="buySword"
+            >
+              <div class="shop-image">
+                <div class="shop-overlay"></div>
+                <img src="@/assets/img/shop/sword.svg" alt="sword" />
+              </div>
               <div>{{ swordPrice }}</div>
             </div>
-            <div class="shop-button" @click="buyClock">
-              <img src="@/assets/img/shop/clock.svg" alt="clock" />
+            <div
+              class="shop-button"
+              :class="{ border: currentPoints >= clockPrice }"
+              @click="buyClock"
+            >
+              <div class="shop-image">
+                <div class="shop-overlay"></div>
+                <img src="@/assets/img/shop/clock.svg" alt="clock" />
+              </div>
               <div>{{ clockPrice }}</div>
             </div>
           </div>
@@ -52,10 +71,10 @@
       <template>
         <div>
           Привет! Спасибо, что посетили мое портфолио! Перед тем, как
-          отправиться изучатье его, предлагаю сыграть в мини-игру. Игра
-          представляет из себя простенький кликер. Всего в игре 10 монстров.
-          Начните килкать по нему и, накопив нужное количество очков, покупайте
-          улучшение. Победив всех 10 монстров, откроется доступ ко всему
+          отправиться изучать его, предлагаю сыграть в мини-игру. Игра
+          представляет из себя простенький кликер. Всего в игре 5 монстров.
+          Начните кликать по нему и, накопив нужное количество очков, покупайте
+          улучшение. Победив всех 5 монстров, откроется доступ ко всему
           портфолио. Удачи!
           <br />
           <small>
@@ -141,9 +160,16 @@ export default {
 
     .mob {
       max-width: 500px;
-
-      img {
+      &-image {
+        position: relative;
+        img {
+          width: 100%;
+        }
+      }
+      &-overlay {
         width: 100%;
+        height: 100%;
+        position: absolute;
       }
       .hp {
         width: 100%;
@@ -177,19 +203,37 @@ export default {
         margin-bottom: 50px;
       }
 
-      &-button {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-        justify-content: center;
-        width: 100%;
+      &-image {
+        position: relative;
         img {
           width: 50px;
           margin-bottom: 10px;
         }
+      }
+
+      &-overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+
+      &-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+        justify-content: center;
+        border-radius: 5px;
+        border: 1px solid transparent;
+        transition: border-color 0.3s;
+        width: 100%;
+
         &:first-of-type {
           margin-bottom: 20px;
+        }
+        &.border {
+          border-color: white;
         }
       }
 

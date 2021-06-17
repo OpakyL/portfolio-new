@@ -14,38 +14,18 @@ export default new Vuex.Store({
       },
       {
         hp: 25,
-        sprite: "angel2",
-      },
-      {
-        hp: 50,
         sprite: "angel3",
       },
       {
-        hp: 100,
-        sprite: "minotaur1",
-      },
-      {
-        hp: 200,
-        sprite: "minotaur2",
-      },
-      {
-        hp: 350,
+        hp: 50,
         sprite: "minotaur3",
       },
       {
-        hp: 500,
-        sprite: "golem1",
-      },
-      {
-        hp: 750,
-        sprite: "golem2",
-      },
-      {
-        hp: 1000,
+        hp: 100,
         sprite: "golem3",
       },
       {
-        hp: 1500,
+        hp: 200,
         sprite: "wrath1",
       },
     ],
@@ -99,7 +79,7 @@ export default new Vuex.Store({
         state.respawning = true;
         state.imageFolder = "died";
         state.currentMobIndex++;
-        if (state.currentMobIndex === 10) {
+        if (state.currentMobIndex === 5) {
           this.commit("completeGame");
           return;
         }

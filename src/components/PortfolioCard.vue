@@ -41,7 +41,8 @@ export default {
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
 
-    &:hover {
+    &:hover,
+    &:active {
       transition: opacity 0.3s;
       opacity: 1;
     }
@@ -54,6 +55,7 @@ export default {
     padding: 5px;
     margin-top: 0.5em;
     text-align: center;
+    transition: color 0.3s;
     &:hover {
       color: red;
     }
